@@ -1,0 +1,66 @@
+{{post.title}}
+
+<div class="row">
+	<div class="col-md-5">
+		<img src="/uploads/{{post.file}}" class="img-thumbnail" width="100%">
+		<hr>
+		<h4 class="text-gray-dark">More Posts From</h4> <a href="/posts/allposts/{{post.user.id}}">{{post.user.firstName}}</a>
+
+        <h3>User Comment</h3>
+        {{#each comments}}
+		<div>
+			<div class="card">
+				<img  src="{{user.image}}" width="100px" height="100px">
+				<div class="card-block text-center">
+                    <span class="text-danger">Comment by {{user.firstName}}</span><br>
+                    <span class="text-info">Date {{formatDate date 'MMMM Do YYYY'}}</span><br>
+					<span class="text-success">Post Content : </span><p class="lead">{{body}}</p>
+				</div>
+			</div>
+		</div>
+		<br>
+		{{else}}
+		 <p>No Comment</p>
+        {{/each}}
+	</div>
+	<div class="col-md-7">
+		<h1>{{post.title}}</h1>
+		<hr>
+		<p class="lead">{{post.body}}</p>
+
+        {{#if user}}
+         {{#if (owner post.user.id user.id) }}
+        <a href="/posts/edit/{{post.id}}" class="btn btn-dark btn-block">Edit</a>
+        <br>
+        <form method="POST" action="/posts/delete/{{post.id}}?_method=DELETE">
+		  <input type="hidden" name="_method" value="DELETE">
+		  <button class="btn btn-danger btn-block" type="submit">Delete Post</button>
+        </form>
+         {{/if}}
+       {{/if}}
+
+        <br><br>
+
+	     {{#if post.allowComments}}
+	      <div class="card">
+	       <div class="card-body">
+	        <span class="card-text">Comments</span>
+	        {{#if user}}
+	          <form method="post" action="/comments/add/{{post.id}}">
+	              <div class="form-group">
+	                <textarea name="commentBody" class="form-control"></textarea>
+	                <label> Add Comment</label>
+	              </div>
+	              <input type="submit" value="Submit" class="btn btn-dark btn-block">
+	          </form>
+	        {{else}}
+	          <p>Please <a href="/user/login">Log</a> in to leave a comment.</p>
+	        {{/if}}
+	       </div>
+	      </div>
+	      {{/if}}
+
+	</div>
+</div>
+
+

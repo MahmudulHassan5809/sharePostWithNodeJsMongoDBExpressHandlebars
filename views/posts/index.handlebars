@@ -1,0 +1,18 @@
+
+<div class="row">
+	{{#each posts}}
+	<div class="col-md-4">
+		<div class="card" style="width: 18rem;">
+		  <img class="card-img-top" src="/uploads/{{file}}" alt="Card image cap">
+		  <div class="card-body">
+		    <h5 class="card-title">{{title}}</h5>
+		    <p class="card-text">{{stripTags (truncate body 150)}}</p>
+		    <p class="card-text">Created By : {{user.firstName}}</p>
+		    <p class="card-text">Created At : {{formatDate date 'MMMM Do YYYY'}}</p>
+		    <a href="/posts/singlepost/{{slug}}" class="btn btn-dark btn-block">View Full Post</a>
+		  </div>
+		</div>
+	</div>
+	{{/each}}
+</div>
+
